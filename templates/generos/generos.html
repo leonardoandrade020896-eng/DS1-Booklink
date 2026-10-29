@@ -62,8 +62,8 @@ Gêneros
                 <a
                     class="botao botao-deletar"
                     href="{{ url_for('generos.deletar_genero', id=genero.id) }}"
-                    onclick="return confirm('Tem certeza que deseja deletar este gênero?')"
-                >
+                    data-id="{{ genero.id }}"
+                    >
                     Deletar
                 </a>
             </td>
@@ -75,5 +75,44 @@ Gêneros
 
 </table>
 
+<div id="modal-confirmacao" class="modal">
+    <div class="modal-conteudo">
+        <h2>Confirmação</h2>
+        <p id="modal-mensagem">Tem certeza que deseja deletar este gênero?</p>
+        <div class="modal-botoes">
+            <button id="confirmar" class="botao botao-confirmar">Confirmar</button>
+            <button id="cancelar" class="botao botao-cancelar">Cancelar</button>
+        </div>
+    </div>
+</div>
+<script>
+    const modal = document.getElementById("modal-confirmacao");
+    const confirmar = document.getElementById("confirmar");
+    const cancelar = document.getElementById("cancelar");
+    const modalMensagem = document.getElementById("modal-mensagem");
+
+    let deleteUrl = ""; // Variável para armazenar o link de deleção
+
+    // Adiciona evento aos botões "Deletar"
+    document.querySelectorAll(".botao-deletar").forEach(botao => {
+        botao.addEventListener("click", function (event) {
+            event.preventDefault(); // Impede o redirecionamento imediato
+            deleteUrl = this.href; // Armazena o link de deleção
+            modalMensagem.textContent = "Tem certeza que deseja deletar este gênero?"; // Atualiza a mensagem do modal
+            modal.style.display = "flex"; // Exibe o modal
+        });
+    });
+
+    // Confirma a deleção
+    confirmar.addEventListener("click", function () {
+        modal.style.display = "none"; // Esconde o modal
+        window.location.href = deleteUrl; // Redireciona para o link de deleção
+    });
+
+    // Cancela a deleção
+    cancelar.addEventListener("click", function () {
+        modal.style.display = "none"; // Esconde o modal
+    });
+</script>
 
 {% endblock %}

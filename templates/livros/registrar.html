@@ -128,5 +128,35 @@ Registrar Livro
         >
 
     </form>
-
+    <!-- Modal de Confirmação -->
+    <div id="modal-confirmacao" class="modal">
+        <div class="modal-conteudo">
+            <h2>Confirmação</h2>
+            <p>Tem certeza que deseja cadastrar este livro?</p>
+            <div class="modal-botoes">
+                <button id="confirmar" class="botao botao-confirmar">Confirmar</button>
+                <button id="cancelar" class="botao botao-cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector("form");
+        const modal = document.getElementById("modal-confirmacao");
+        const confirmar = document.getElementById("confirmar");
+        const cancelar = document.getElementById("cancelar");
+    
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Impede o envio do formulário
+            modal.style.display = "flex"; // Exibe o modal
+        });
+    
+        confirmar.addEventListener("click", function () {
+            modal.style.display = "none"; // Esconde o modal
+            form.submit(); // Envia o formulário
+        });
+    
+        cancelar.addEventListener("click", function () {
+            modal.style.display = "none"; // Esconde o modal
+        });
+    </script>
 {% endblock %}
